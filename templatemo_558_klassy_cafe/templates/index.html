@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <title>Klassy Cafe - Restaurant HTML Template</title>
+<!--
+    
+TemplateMo 558 Klassy Cafe
+
+https://templatemo.com/tm-558-klassy-cafe
+
+-->
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="../static/assets/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../static/assets/css/font-awesome.css">
+
+    <link rel="stylesheet" href="../static/assets/css/templatemo-klassy-cafe.css">
+
+    <link rel="stylesheet" href="../static/assets/css/owl-carousel.css">
+
+    <link rel="stylesheet" href="../static/assets/css/lightbox.css">
+
+  </head>
+    
+  <body>
+    
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+    
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="index.html" class="logo">
+                            <h4 class="mt-4">KlassyCafes</h4>
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="#about">Cafes</a></li>
+                           	
+                        <!-- 
+                            <li class="submenu">
+                                <a href="javascript:;">Drop Down</a>
+                                <ul>
+                                    <li><a href="#">Drop Down Page 1</a></li>
+                                    <li><a href="#">Drop Down Page 2</a></li>
+                                    <li><a href="#">Drop Down Page 3</a></li>
+                                </ul>
+                            </li>
+                        -->
+                            <!-- <li class=""><a rel="sponsored" href="https://templatemo.com" target="_blank">External URL</a></li> -->
+                            <li class="scroll-to-section"><a href="#reservation">Add A Cafe</a></li>
+                        </ul>        
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Main Banner Area Start ***** -->
+    <div id="top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="left-content">
+                        <div class="inner-content">
+                            <h4>KlassyCafes</h4>
+                            <h6>LIST OF CAFES IN LONDON</h6>
+                            <div class="main-white-button scroll-to-section">
+                                <a href="#reservation">Add A Cafe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="main-banner header-text">
+                        <div class="Modern-Slider">
+                          <!-- Item -->
+                          <div class="item">
+                            <div class="img-fill">
+                                <img src="../static/assets/images/slide-01.jpg" alt="">
+                            </div>
+                          </div>
+                          <!-- // Item -->
+                          <!-- Item -->
+                          <div class="item">
+                            <div class="img-fill">
+                                <img src="../static/assets/images/slide-02.jpg" alt="">
+                            </div>
+                          </div>
+                          <!-- // Item -->
+                          <!-- Item -->
+                          <div class="item">
+                            <div class="img-fill">
+                                <img src="../static/assets/images/slide-03.jpg" alt="">
+                            </div>
+                          </div>
+                          <!-- // Item -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Main Banner Area End ***** -->
+
+    <!-- ***** About Area Starts ***** -->
+    <section class="section" id="about">
+        <div class="container">
+        {% for cafe in cafes %}
+            <div class="row mb-5">
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                    <div class="left-text-content">
+                        <div class="section-heading">
+                            <h6>No. {{ cafe.id }}</h6>
+                            <h2>{{ cafe.name }}</h2>
+                        </div>
+                        {% set template_index = templates | random %}
+                        <p> {{ template_index["maintext"] }}
+                            {% if cafe.has_sockets == 1 %}
+                            {{ template_index["if_has_socket"] }}
+                            {% endif %}
+                            <br><br>
+                            {% if cafe.has_wifi == 1 %}
+                            {{ template_index["if_has_wifi"] }}
+                            {% endif %}
+                            {% if cafe.can_take_calls == 1 %}
+                            {{ template_index["if_can_take_calls"] }}
+                            {% else %}
+                            {{ template_index["else"] }}
+                            {% endif %}
+                            {% if cafe.has_toilet == 1 %}
+                            You’ll also find restroom facilities available, and the
+                            {% else %}
+                            The
+                            {% endif %}
+                            café is conveniently located in {{ cafe.location }}. with a <a href="{{ cafe.map_url }}" target="_blank" rel="sponsored">link</a> provided for easy access.
+                            <br><br>
+                            They have {{ cafe.seats }} number of seats and their coffee price is {{ cafe.coffee_price }}.
+                            <a class="text-danger text-right" href="{{ url_for('delete_post', cafe_id= cafe.id) }}">❌</a>
+                            </p>
+
+
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                    <div class="right-content">
+                        <div class="thumb">
+                            <img src="{{ cafe.img_url }}" alt="Cafe Image" width="540" height="507">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </section>
+    <!-- ***** About Area Ends ***** -->
+
+
+    <!-- ***** Reservation Us Area Starts ***** -->
+    <section class="section" id="reservation">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 align-self-center">
+                    <div class="left-text-content">
+                        <div class="section-heading">
+                            <h6>Add A Cafe</h6>
+                            <h2>Here You Can Add A Cafe In London That Is Not In Our List</h2>
+                        </div>
+                        <p>Please, fill the form that is on the right hand side of the screen to add your cafe to the list.<br><br>
+                        NOTE: in the form, 0 means NO while 1 means YES</p>
+
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="contact-form">
+                        <form id="contact" action="{{ url_for('add_post') }}" method="post">
+                          <div class="row">
+                            <div class="col-lg-12">
+                                <h4>Cafe</h4>
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                              <fieldset>
+                                <input name="name" type="text" id="name" placeholder="Cafe Name*" required="">
+                              </fieldset>
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                              <fieldset>
+                              <input name="map_url" type="text" id="map_url" placeholder="Cafe Map Url*" required="">
+                            </fieldset>
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                              <fieldset>
+                                <input name="img_url" type="text" id="img_url" placeholder="Cafe Image Url*" required="">
+                              </fieldset>
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                              <fieldset>
+                                <input name="location" type="text" id="location" placeholder="Cafe Location*" required="">
+                              </fieldset>
+                          </div>
+                          <div class="col-md-6 col-sm-12">
+                              <fieldset>
+                                <select value="has_sockets" name="has_sockets" id="has_sockets">
+                                    <option value="has_sockets">Is socket available?</option>
+                                    <option name="0" id="0">0</option>
+                                    <option name="1" id="1">1</option>
+                                </select>
+                              </fieldset>
+                          </div>
+                          <div class="col-md-6 col-sm-12">
+                              <fieldset>
+                                <select value="has_toilet" name="has_toilet" id="has_toilet">
+                                    <option value="has_toilet">Is toilet available?</option>
+                                    <option name="0" id="2">0</option>
+                                    <option name="1" id="3">1</option>
+                                </select>
+                              </fieldset>
+                          </div>
+                          <div class="col-md-6 col-sm-12">
+                              <fieldset>
+                                <select value="has_wifi" name="has_wifi" id="has_wifi">
+                                    <option value="has_wifi">Is_wifi_available?</option>
+                                    <option name="0" id="4">0</option>
+                                    <option name="1" id="5">1</option>
+                                </select>
+                              </fieldset>
+                          </div>
+                          <div class="col-md-6 col-sm-12">
+                              <fieldset>
+                                <select value="can_take_calls" name="can_take_calls" id="can_take_calls">
+                                    <option value="can_take_calls">Are calls allowed?</option>
+                                    <option name="0" id="6">0</option>
+                                    <option name="1" id="7">1</option>
+                                </select>
+                              </fieldset>
+                          </div>
+                          <div class="col-md-6 col-sm-12">
+                              <fieldset>
+                                <select value="seats" name="seats" id="seats">
+                                    <option value="seats">Number Of seats</option>
+                                    <option name="0 - 10" id="8">0 - 10</option>
+                                    <option name="10 - 20" id="9">10 - 20</option>
+                                    <option name="20 - 30" id="10">20 - 30</option>
+                                    <option name="30 - 40" id="11">30 - 40</option>
+                                    <option name="50+" id="12">50+</option>
+                                </select>
+                              </fieldset>
+                          </div>
+                          <div class="col-lg-6 col-sm-12">
+                              <fieldset>
+                                <input name="coffee_price" type="text" id="coffee_price" placeholder="coffee_price*" required="">
+                              </fieldset>
+                            </div>
+                          <div class="col-lg-12">
+                              <fieldset>
+                                <button type="submit" id="form-submit" class="main-button-icon">Make A Reservation</button>
+                              </fieldset>
+                            </div>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Reservation Area Ends ***** -->
+
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-xs-12">
+                    <div class="right-text-content">
+                            <ul class="social-icons">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-xs-12">
+                    <div class="left-text-content">
+                        <p>© Copyright Klassy Cafe Co.
+                        
+                        <br>Design: TemplateMo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="../static/assets/js/jquery-2.1.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="../static/assets/js/popper.js"></script>
+    <script src="../static/assets/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script src="../static/assets/js/owl-carousel.js"></script>
+    <script src="../static/assets/js/accordions.js"></script>
+    <script src="../static/assets/js/datepicker.js"></script>
+    <script src="../static/assets/js/scrollreveal.min.js"></script>
+    <script src="../static/assets/js/waypoints.min.js"></script>
+    <script src="../static/assets/js/jquery.counterup.min.js"></script>
+    <script src="../static/assets/js/imgfix.min.js"></script>
+    <script src="../static/assets/js/slick.js"></script>
+    <script src="../static/assets/js/lightbox.js"></script>
+    <script src="../static/assets/js/isotope.js"></script>
+    
+    <!-- Global Init -->
+    <script src="../static/assets/js/custom.js"></script>
+    <script>
+
+        $(function() {
+            var selectedClass = "";
+            $("p").click(function(){
+            selectedClass = $(this).attr("data-rel");
+            $("#portfolio").fadeTo(50, 0.1);
+                $("#portfolio div").not("."+selectedClass).fadeOut();
+            setTimeout(function() {
+              $("."+selectedClass).fadeIn();
+              $("#portfolio").fadeTo(50, 1);
+            }, 500);
+                
+            });
+        });
+
+    </script>
+  </body>
+</html>
